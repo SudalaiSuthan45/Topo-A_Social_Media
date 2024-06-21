@@ -12,6 +12,7 @@ dotenv.config();
 
 const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
+const postRoute = require("./routes/posts")
 
 mongoose
     .connect(process.env.MONGO_URL)
@@ -33,3 +34,5 @@ app.listen(8800,()=> {
 app.use("/api/users", userRoute)
 
 app.use("/api/auth", authRoute)
+
+app.use("/api/posts", postRoute)
