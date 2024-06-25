@@ -1,10 +1,10 @@
-
+import Home from "./pages/home/Home";
 
 function App() {
   return (
     <div>
 
-        Hellloo
+        <Home />
 
     </div>
   );
