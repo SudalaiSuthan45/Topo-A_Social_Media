@@ -27,7 +27,7 @@ export default function Login() {
             <div className="loginRight">
                 <form className="loginBox" onSubmit={handleClick}>
                     <input placeholder='Email' required type="email" className="loginInput" ref={email} />
-                    <input placeholder='Password' required type="password" minLength={6} className="loginInput" ref={password} />
+                    <input placeholder='Password' required type="password" minLength="6" className="loginInput" ref={password} />
                     <button className="loginButton" type='submit' disabled={isFetching}>
                         { isFetching ? <CircularProgress /> : "Log In" }
                     </button>
