@@ -5,6 +5,10 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const cors = require("cors");
+
+const multer = require("multer");
+const path = require("path");
 
 const app = express();
 
@@ -37,3 +41,40 @@ app.use("/api/users", userRoute)
 app.use("/api/auth", authRoute)
 
 app.use("/api/posts", postRoute)
+
+
+// Enable CORS for all routes
+app.use(cors());
+
+
+// Set Cross-Origin-Resource-Policy header
+app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+});
+
+
+//multer
+
+app.use("/images", express.static(path.join(__dirname, "public/images")));
+
+// app.use(express.static('public'));
+
+const storage = multer.diskStorage({
+    destination: ( req, file, cb ) => {
+        cb ( null, "public/images");
+    },
+    filename : ( req, file, cb) =>{
+        cb( null, req.body.name);
+    },
+});
+
+const upload = multer({storage});
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+    try {
+        return res.status(200).json("File Uploaded Successfully..");
+    }catch(err){
+        console.log(err);
+    }
+})
